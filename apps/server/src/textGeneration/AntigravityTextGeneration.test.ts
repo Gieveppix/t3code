@@ -288,12 +288,12 @@ const makeFixture = Effect.fn("makeAntigravityTextGenerationFixture")(function* 
 });
 
 it.layer(NodeServices.layer)("AntigravityTextGeneration", (it) => {
-  it.effect(
-    "generates all helper types in empty workspaces and removes only owned session files",
-    () =>
+  it.effect.each([false, true])(
+    "generates all helper types and cleans up with startupSkills=%s",
+    (startupSkills) =>
       Effect.gen(function* () {
         const fixture = yield* makeFixture({
-          startupSkills: true,
+          startupSkills,
           outputs: [
             '{"subject":"  Repair Google login.\\nExtra line","body":"  Keep the remote callback.  ","branch":"Repair Login"}',
             '```json\n{"title":" Repair Google login\\nExtra line","body":"  ## Summary\\nSupport remote callbacks.  "}\n```',
